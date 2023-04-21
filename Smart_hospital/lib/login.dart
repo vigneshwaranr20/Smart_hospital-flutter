@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:smart_hospital/appointment.dart';
+import 'package:smart_hospital/register.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -19,10 +20,15 @@ class _LoginState extends State<Login> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: Image.asset('images/Group 27.jpg'),
-        leadingWidth: 100,
+        title: Container(
+          margin: EdgeInsets.only(left: 70),
+          width: 180,
+          height: 50,
+          child: Image.asset('images/Group 27.jpg'),
+        ),
         actions: [
           Container(
+            margin: EdgeInsets.fromLTRB(10, 0, 60, 0),
             child: ButtonBar(
               children: [
                 ElevatedButton(
@@ -34,17 +40,26 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0.0),
+                    ),
                     backgroundColor: Colors.white,
                     side: BorderSide(
                       color: Color(0xFF1580EB),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Register()),
+                    );
+                  },
                 )
               ],
             ),
           ),
           Container(
+            margin: EdgeInsets.fromLTRB(10, 0, 200, 0),
             child: ButtonBar(
               children: [
                 ElevatedButton(
@@ -56,10 +71,18 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0.0),
+                    ),
                     backgroundColor: Colors.white,
                     side: BorderSide(color: Colors.lightBlue),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+                  },
                 ),
               ],
             ),
@@ -73,19 +96,19 @@ class _LoginState extends State<Login> {
             Stack(
               children: [
                 Container(
-                  margin: EdgeInsets.only(top: 80, left: 277),
-                  width: 757,
-                  height: 561,
+                  margin: EdgeInsets.only(top: 80, left: 150),
+                  width: 500,
+                  height: 400,
                   child: Image.network(
                       'https://wallpaperaccess.com/full/1940042.jpg'),
                 ),
                 Container(
-                  width: 700,
-                  height: 461,
+                  width: 570,
+                  height: 350,
                   color: Colors.blue,
-                  margin: EdgeInsets.only(top: 127, left: 943),
+                  margin: EdgeInsets.only(top: 100, left: 600),
                   child: Container(
-                    margin: EdgeInsets.only(top: 89),
+                    margin: EdgeInsets.only(top: 10),
                     child: Column(
                       children: [
                         Text(
@@ -96,7 +119,7 @@ class _LoginState extends State<Login> {
                           height: 20,
                         ),
                         Container(
-                          width: 615,
+                          width: 515,
                           child: TextField(
                             controller: _controller,
                             decoration: InputDecoration(
@@ -115,7 +138,7 @@ class _LoginState extends State<Login> {
                         ),
                         SizedBox(height: 40),
                         Container(
-                          width: 615,
+                          width: 515,
                           child: TextField(
                             controller: _controller1,
                             decoration: InputDecoration(
@@ -135,7 +158,7 @@ class _LoginState extends State<Login> {
                         SizedBox(height: 40),
                         Container(
                           margin: EdgeInsets.only(left: 0.0),
-                          width: 615,
+                          width: 515,
                           child: ElevatedButton(
                             onPressed: () async {
                               String mobileNumber = _controller.text;
@@ -175,7 +198,7 @@ class _LoginState extends State<Login> {
                                       AlertDialog(
                                     title: Text('Error'),
                                     content: Text(
-                                        'Failed to login. Please try again.'),
+                                        'Check Mobile Number and Password.'),
                                     actions: [
                                       TextButton(
                                         onPressed: () {
