@@ -1,4 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:smart_hospital/login.dart';
+import 'package:flutter/services.dart';
+
+import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
   @override
@@ -6,15 +12,23 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  TextEditingController RegController = TextEditingController();
+  TextEditingController RegController1 = TextEditingController();
+  TextEditingController RegController2 = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: Image.asset('images/Group 27.jpg'),
-        leadingWidth: 100,
+        title: Container(
+          margin: EdgeInsets.only(left: 70),
+          width: 180,
+          height: 50,
+          child: Image.asset('images/Group 27.jpg'),
+        ),
         actions: [
           Container(
+            margin: EdgeInsets.fromLTRB(10, 0, 60, 0),
             child: ButtonBar(
               children: [
                 ElevatedButton(
@@ -26,17 +40,26 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0.0),
+                    ),
                     backgroundColor: Colors.white,
                     side: BorderSide(
                       color: Color(0xFF1580EB),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Register()),
+                    );
+                  },
                 )
               ],
             ),
           ),
           Container(
+            margin: EdgeInsets.fromLTRB(10, 0, 200, 0),
             child: ButtonBar(
               children: [
                 ElevatedButton(
@@ -48,10 +71,18 @@ class _RegisterState extends State<Register> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(0.0),
+                    ),
                     backgroundColor: Colors.white,
                     side: BorderSide(color: Colors.lightBlue),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+                  },
                 ),
               ],
             ),
@@ -59,40 +90,39 @@ class _RegisterState extends State<Register> {
         ],
       ),
       body: Container(
-        margin: EdgeInsets.only(left: 300),
+        margin: EdgeInsets.only(left: 150),
         child: Column(
           children: [
             Stack(
               children: [
                 Container(
-                  margin: EdgeInsets.only(
-                    left: 550,
-                  ),
-                  width: 757,
-                  height: 671,
+                  margin: EdgeInsets.only(left: 450, top: 100),
+                  width: 557,
+                  height: 371,
                   child: Image.network(
                       'https://images.pexels.com/photos/1563356/pexels-photo-1563356.jpeg?cs=srgb&dl=pexels-craig-adderley-1563356.jpg&fm=jpg'),
                 ),
                 Container(
                   color: Colors.blue,
-                  width: 700,
-                  height: 446,
+                  width: 520,
+                  height: 300,
                   margin: EdgeInsets.only(
                     left: 0,
-                    top: 115,
+                    top: 135,
                   ),
                   child: Container(
-                    margin: EdgeInsets.only(top: 20),
+                    margin: EdgeInsets.only(top: 10),
                     child: Column(
                       children: [
                         Text(
                           'Register',
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
-                        SizedBox(height: 20),
+                        SizedBox(height: 10),
                         Container(
-                          width: 615,
+                          width: 415,
                           child: TextField(
+                            controller: RegController,
                             decoration: InputDecoration(
                               hintText: "Mobile Number",
                               hintStyle: TextStyle(color: Colors.white),
@@ -107,10 +137,11 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 40),
+                        SizedBox(height: 10),
                         Container(
-                          width: 615,
+                          width: 415,
                           child: TextField(
+                            controller: RegController1,
                             decoration: InputDecoration(
                               hintText: "Create Password",
                               hintStyle: TextStyle(color: Colors.white),
@@ -125,10 +156,11 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 40),
+                        SizedBox(height: 10),
                         Container(
-                          width: 615,
+                          width: 415,
                           child: TextField(
+                            controller: RegController2,
                             decoration: InputDecoration(
                               hintText: "Confirm Password",
                               hintStyle: TextStyle(color: Colors.white),
@@ -143,26 +175,106 @@ class _RegisterState extends State<Register> {
                             ),
                           ),
                         ),
-                        SizedBox(height: 40),
+                        SizedBox(height: 10),
                         Container(
                           child: Row(
                             children: [
                               Container(
-                                margin: EdgeInsets.only(left: 38),
+                                margin: EdgeInsets.only(left: 50),
                                 child: ElevatedButton(
                                   onPressed: () {},
                                   child: Text('Cancel'),
                                   style: ElevatedButton.styleFrom(
-                                    fixedSize: Size(208, 61),
+                                    fixedSize: Size(198, 51),
                                     side: const BorderSide(
                                         width: 1.0, color: Colors.white70),
                                   ),
                                 ),
                               ),
                               Container(
-                                margin: EdgeInsets.only(left: 199.0),
+                                margin: EdgeInsets.only(left: 20.0),
                                 child: ElevatedButton(
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    String mobileNumber = RegController.text;
+                                    String createPassword = RegController1.text;
+                                    String confirmpassword =
+                                        RegController2.text;
+                                    Map<String, dynamic> requestBody = {
+                                      'mobile_number': mobileNumber,
+                                      'create_password': createPassword,
+                                      'confirm_password': confirmpassword,
+                                    };
+                                    String requestBodyJson =
+                                        json.encode(requestBody);
+                                    print(requestBodyJson);
+
+                                    final response = await http.post(
+                                      Uri.parse(
+                                          'http://localhost:8080/hospital/Register'),
+                                      headers: {
+                                        'Content-Type': 'application/json',
+                                      },
+                                      body: requestBodyJson,
+                                    );
+                                    Map<String, dynamic> responseBody =
+                                        json.decode(response.body);
+                                    var status = responseBody['status'];
+                                    print('Status: $status');
+
+                                    if (status == '201') {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          content: Text(
+                                            'Already Register User Please Login',
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Login()),
+                                                );
+                                              },
+                                              child: Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) =>
+                                            AlertDialog(
+                                          content: Text(
+                                            'Your Successfully Registered Please Login',
+                                            style: TextStyle(
+                                                color: Colors.blue,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          actions: [
+                                            TextButton(
+                                              onPressed: () {
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          Register()),
+                                                );
+                                              },
+                                              child: Text('OK'),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  },
                                   child: Text(
                                     'Save',
                                     style: TextStyle(color: Color(0xff174FAC)),
@@ -173,7 +285,7 @@ class _RegisterState extends State<Register> {
                                         width: 1.0,
                                         color: Colors.white70,
                                       ),
-                                      fixedSize: Size(208, 61)),
+                                      fixedSize: Size(198, 51)),
                                 ),
                               ),
                             ],
