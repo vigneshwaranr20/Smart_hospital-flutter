@@ -121,6 +121,11 @@ class _LoginState extends State<Login> {
                         Container(
                           width: 515,
                           child: TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(10),
+                            ],
                             controller: _controller,
                             decoration: InputDecoration(
                               hintText: "Mobile Number",

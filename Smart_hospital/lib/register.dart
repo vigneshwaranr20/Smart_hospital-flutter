@@ -15,6 +15,7 @@ class _RegisterState extends State<Register> {
   TextEditingController RegController = TextEditingController();
   TextEditingController RegController1 = TextEditingController();
   TextEditingController RegController2 = TextEditingController();
+  bool _validate = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -122,6 +123,11 @@ class _RegisterState extends State<Register> {
                         Container(
                           width: 415,
                           child: TextField(
+                            keyboardType: TextInputType.number,
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(10),
+                            ],
                             controller: RegController,
                             decoration: InputDecoration(
                               hintText: "Mobile Number",
@@ -265,7 +271,7 @@ class _RegisterState extends State<Register> {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) =>
-                                                          Register()),
+                                                          Login()),
                                                 );
                                               },
                                               child: Text('OK'),
