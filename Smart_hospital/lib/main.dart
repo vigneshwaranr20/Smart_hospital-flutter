@@ -6,8 +6,10 @@ import 'package:smart_hospital/register.dart';
 import 'package:smart_hospital/login.dart';
 import 'package:http/http.dart' as http;
 
-import 'Model/images.dart';
-import 'api/image.dart';
+import 'Model/DoctorImagesmodel.dart';
+import 'api/DoctorimageApi.dart';
+import 'dropdown.dart';
+import 'package:smart_hospital/history.dart';
 
 void main() {
   runApp(
@@ -47,7 +49,7 @@ class _MyAppState extends State<MyApp> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         title: Container(
-          margin: EdgeInsets.only(left: 125),
+          margin: EdgeInsets.only(left: 100),
           width: 180,
           height: 50,
           child: Image.asset('images/Group 27.jpg'),
@@ -86,7 +88,7 @@ class _MyAppState extends State<MyApp> {
           ),
           Container(
             // Use EdgeInsets.symmetric to set equal margin values for left and right
-            margin: EdgeInsets.fromLTRB(10, 0, 200, 0),
+            margin: EdgeInsets.fromLTRB(10, 0, 100, 0),
             child: ButtonBar(
               children: [
                 ElevatedButton(
@@ -126,7 +128,7 @@ class _MyAppState extends State<MyApp> {
                   Expanded(
                     child: Container(
                       margin: EdgeInsets.fromLTRB(
-                          150, 0, 0, 0), // Adjusted margin values
+                          20, 0, 0, 0), // Adjusted margin values
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -140,7 +142,7 @@ class _MyAppState extends State<MyApp> {
                           SizedBox(height: 20),
                           Container(
                             width: 500,
-                            height: 140,
+                            height: 180,
                             child: Text(
                               'We at Smart Hospital on the East Coast Road Puducherry are committed to creating a healthier society. Towards this end, we provide one of the best tertiary care services in the state. Our holistic approach to healthcare begins with primary care and extends to specialized treatments. We ensure multi disciplinary approach and patient centric care, which are essential for compassionate care. At Smart Hospital every patient is guaranteed the best medical, diagnostic and surgical services. Our services reach over 5,00,000 outpatients and 40,000 inpatients a year.',
                               style: TextStyle(),
@@ -149,9 +151,10 @@ class _MyAppState extends State<MyApp> {
                           ButtonBar(
                             children: [
                               Container(
-                                margin: EdgeInsets.fromLTRB(0, 0, 0, 0),
-                                width: 120,
-                                height: 25,
+                                margin: EdgeInsets.fromLTRB(0, 0, 500, 0),
+                                padding: EdgeInsets.all(0),
+                                width: 200,
+                                height: 30,
                                 child: ElevatedButton(
                                   child: Text(
                                     'Book Appointment',
@@ -179,29 +182,31 @@ class _MyAppState extends State<MyApp> {
                       ),
                     ),
                   ),
-                  Column(
-                    children: [
-                      Container(
-                        margin: EdgeInsets.fromLTRB(50, 20, 0, 0),
-                        child: Stack(
-                          children: [
-                            Container(
-                              width: 450,
-                              height: 300,
-                              color: Colors.grey,
-                            ),
-                            Container(
-                              margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                              child: Image.asset(
-                                'images/hospitall.jpg',
+                  SizedBox(
+                    child: Column(
+                      children: [
+                        Container(
+                          margin: EdgeInsets.fromLTRB(50, 20, 0, 0),
+                          child: Stack(
+                            children: [
+                              Container(
                                 width: 450,
-                                height: 290,
+                                height: 300,
+                                color: Colors.grey,
                               ),
-                            ),
-                          ],
+                              Container(
+                                margin: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                                child: Image.asset(
+                                  'images/hospitall.jpg',
+                                  width: 450,
+                                  height: 290,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -211,7 +216,7 @@ class _MyAppState extends State<MyApp> {
                     child: Stack(
                       children: [
                         Container(
-                          margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                          margin: EdgeInsets.fromLTRB(20, 10, 0, 0),
                           color: Color(0xffFFEADD),
                           height: 150,
                           width: double.infinity,
@@ -228,7 +233,7 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(300, 100, 0, 0),
+                          margin: EdgeInsets.fromLTRB(180, 100, 0, 0),
                           child: Image.network(
                             "https://www.shutterstock.com/image-photo/patient-having-consultation-female-doctor-260nw-534962014.jpg",
                             width: 50,
@@ -243,7 +248,7 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),*/
                         Container(
-                          margin: EdgeInsets.fromLTRB(550, 100, 0, 0),
+                          margin: EdgeInsets.fromLTRB(460, 100, 0, 0),
                           child: Image.network(
                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrksXpUHoIF3Bu08wuRViUSa5HXTmnG74ISw&usqp=CAU",
                             width: 50,
@@ -251,21 +256,21 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(420, 120, 0, 0),
+                          margin: EdgeInsets.fromLTRB(320, 120, 0, 0),
                           child: Text(
                             'Digital X-ray onsite',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(150, 120, 0, 0),
+                          margin: EdgeInsets.fromLTRB(20, 120, 0, 0),
                           child: Text(
                             'Make An Appointment',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(800, 100, 0, 0),
+                          margin: EdgeInsets.fromLTRB(770, 100, 0, 0),
                           child: Image.network(
                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOZxkdxVHqivpqbyF0clKQ4oiLEMqfNHOAwg&usqp=CAU",
                             width: 50,
@@ -273,14 +278,14 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(650, 120, 0, 0),
+                          margin: EdgeInsets.fromLTRB(620, 120, 0, 0),
                           child: Text(
                             'Emergency Services',
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(950, 100, 0, 0),
+                          margin: EdgeInsets.fromLTRB(1070, 100, 0, 0),
                           child: Image.network(
                             "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGBGaUiwWXSwdXpv60xR6c7-gRr8USMcdT_A&usqp=CAU",
                             width: 50,
@@ -288,7 +293,7 @@ class _MyAppState extends State<MyApp> {
                           ),
                         ),
                         Container(
-                          margin: EdgeInsets.fromLTRB(1020, 120, 0, 0),
+                          margin: EdgeInsets.fromLTRB(950, 120, 0, 0),
                           child: Text(
                             'Immunizations',
                             style: TextStyle(fontWeight: FontWeight.bold),
@@ -303,13 +308,13 @@ class _MyAppState extends State<MyApp> {
                         child: Stack(
                           children: [
                             Container(
-                              margin: EdgeInsets.fromLTRB(140, 30, 0, 0),
+                              margin: EdgeInsets.fromLTRB(40, 30, 0, 0),
                               color: Colors.purpleAccent,
                               height: 250,
                               width: 350,
                             ),
                             Container(
-                              margin: EdgeInsets.fromLTRB(170, 20, 0, 0),
+                              margin: EdgeInsets.fromLTRB(20, 20, 0, 0),
                               child: Image.network(""),
                               width: 350,
                               height: 250,
@@ -411,7 +416,7 @@ class _MyAppState extends State<MyApp> {
                         )
                       ],
                     ),
-                    margin: EdgeInsets.only(left: 150, top: 10),
+                    margin: EdgeInsets.only(left: 22, top: 10),
                     width: 300,
                     height: 250,
                     child: Stack(
@@ -538,7 +543,7 @@ class _MyAppState extends State<MyApp> {
                         )
                       ],
                     ),
-                    margin: EdgeInsets.only(left: 150, top: 10),
+                    margin: EdgeInsets.only(left: 22, top: 10),
                     width: 300,
                     height: 250,
                     child: Stack(
@@ -651,7 +656,6 @@ class _MyAppState extends State<MyApp> {
               Container(
                 margin: EdgeInsets.only(top: 20),
                 width: 1700,
-                height: 750,
                 color: Color(0xffECF3FA),
                 child: Column(
                   children: [
@@ -659,7 +663,8 @@ class _MyAppState extends State<MyApp> {
                       'Meet our Specialist',
                       style: TextStyle(color: Color(0xff174FAC), fontSize: 25),
                     ),
-                    Expanded(
+                    SizedBox(
+                      height: 401,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount:
@@ -669,10 +674,109 @@ class _MyAppState extends State<MyApp> {
                             children: [
                               Container(
                                 margin: EdgeInsets.only(
-                                    left: 30, bottom: 400, right: 0),
+                                    left: 30, bottom: 0, right: 0),
                                 width: 250,
                                 height: 280,
-                                color: Colors.indigo,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          left: index == 0 ? 0.0 : 0.0,
+                                          top: 10),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(0.0),
+                                        child: Image.network(
+                                          doctorList[index].doctorImage,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      width: 180.0,
+                                      height: 200.0,
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 0.0),
+                                      child: Text(
+                                        doctorList[index].doctorName,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.blue),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 0.0),
+                                      child: Text(
+                                        doctorList[index].specialist,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.blue),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: 490,
+                      child: ListView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount:
+                            doctorList.length >= 4 ? doctorList.length - 4 : 0,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.only(
+                                    left: 30, bottom: 220, right: 0, top: 0),
+                                width: 250,
+                                height: 280,
+                                color: Colors.white,
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      margin: EdgeInsets.only(
+                                          left: index == 0 ? 0.0 : 0.0,
+                                          top: 10),
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadius.circular(0.0),
+                                        child: Image.network(
+                                          doctorList[index + 4].doctorImage,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                      width: 180.0,
+                                      height: 200.0,
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 0.0),
+                                      child: Text(
+                                        doctorList[index + 4].doctorName,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.blue),
+                                      ),
+                                    ),
+                                    Container(
+                                      margin: EdgeInsets.only(top: 0.0),
+                                      child: Text(
+                                        doctorList[index + 4].specialist,
+                                        style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.normal,
+                                            color: Colors.blue),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           );
@@ -682,6 +786,12 @@ class _MyAppState extends State<MyApp> {
                   ],
                 ),
               ),
+              Container(
+                margin: EdgeInsets.only(bottom: 800),
+                width: double.infinity,
+                height: 100,
+                color: Colors.black,
+              )
             ],
           ),
         ),

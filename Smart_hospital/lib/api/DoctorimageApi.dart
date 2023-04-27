@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import '../Model/images.dart';
+import '../Model/DoctorImagesmodel.dart';
 
 class doctorDetails {
   Future<Welcome> getImages() async {
